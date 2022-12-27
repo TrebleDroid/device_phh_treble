@@ -3,7 +3,6 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := phh-gapps-go-overrides
 PACKAGES.$(LOCAL_MODULE).OVERRIDES := \
-	Wellbeing \
 	GMailGo \
 	YouTubeGo \
 	DuoGo \
@@ -42,7 +41,6 @@ PACKAGES.$(LOCAL_MODULE).OVERRIDES := \
 	Videos \
 	Duo \
 	Traceur \
-	Wellbeing \
 	YouTube \
 	Photos \
 	Maps \
