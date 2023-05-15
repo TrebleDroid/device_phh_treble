@@ -766,8 +766,6 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
     done
 
     resetprop_phh ro.build.tags release-keys
-    resetprop_phh ro.boot.vbmeta.device_state locked
-    resetprop_phh ro.boot.verifiedbootstate green
     resetprop_phh ro.boot.flash.locked 1
     resetprop_phh ro.boot.veritymode enforcing
     resetprop_phh ro.boot.warranty_bit 0
