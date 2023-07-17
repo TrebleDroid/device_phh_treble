@@ -331,6 +331,14 @@ if [ "$(getprop ro.product.vendor.manufacturer)" = motorola ] && getprop ro.vend
     setprop persist.sys.overlay.devinputjack true
 fi
 
+if [ "$(getprop ro.product.vendor.manufacturer)" = "HMD Global" ] && getprop ro.product.vendor.device |grep -qE '^IRM_sprout';then
+    for l in lib;do
+        for f in mt6761 T99621AA3;do
+            mount /system/phh/empty /vendor/$l/hw/keystore.$f.so
+        done
+    done
+fi
+
 if ! getprop ro.vendor.build.fingerprint |grep samsung/;then
     if mount -o remount,rw /system; then
         resize2fs "$(grep ' /system ' /proc/mounts | cut -d ' ' -f 1)" || true
