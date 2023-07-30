@@ -1,21 +1,40 @@
-/system/bin/phh-su                   u:object_r:phhsu_exec:s0
-/system/bin/vndk-detect			u:object_r:vndk_detect_exec:s0
+# PHH
+/system/bin/phh-on-boot.sh	u:object_r:phhsu_exec:s0
+/system/bin/phh-on-data.sh	u:object_r:phhsu_exec:s0
+/system/bin/phh-prop-handler.sh	u:object_r:phhsu_exec:s0
+/system/bin/phh-remotectl.sh	u:object_r:phhsu_exec:s0
+/system/bin/phh-securize.sh	u:object_r:phhsu_exec:s0
+/system/bin/phh-su		u:object_r:phhsu_exec:s0
+/system/bin/rw-system.sh	u:object_r:phhsu_exec:s0
+/system/bin/vndk-detect		u:object_r:vndk_detect_exec:s0
+
+# USB Audio Policy
 /system/etc/usb_audio_policy_configuration.xml	u:object_r:vendor_configs_file:s0
-/system/bin/rw-system.sh u:object_r:phhsu_exec:s0
-/system/bin/phh-on-boot.sh u:object_r:phhsu_exec:s0
-/system/bin/phh-on-data.sh u:object_r:phhsu_exec:s0
-/system/bin/asus-motor u:object_r:phhsu_exec:s0
-/system/bin/xiaomi-touch u:object_r:phhsu_exec:s0
 
-/bt_firmware(/.*)?      u:object_r:bt_firmware_file:s0
+# Required for 8.1 CAF Devices
+/bt_firmware(/.*)?	u:object_r:bt_firmware_file:s0
 
-/sec_storage(/.*)?      u:object_r:teecd_data_file:s0
-/dev/dsm                u:object_r:dmd_device:s0
+# Asus Camera
+/system/bin/asus-motor	u:object_r:phhsu_exec:s0
 
-/system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oppo.compat u:object_r:hal_fingerprint_oppo_compat_exec:s0
-/system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oplus.compat u:object_r:hal_fingerprint_oppo_compat_exec:s0
+# Xiaomi DT2W
+/system/bin/xiaomi-touch	u:object_r:phhsu_exec:s0
 
-/efs u:object_r:efs_file:s0
+# Honor View 10 fingerprint
+/sec_storage(/.*)?	u:object_r:teecd_data_file:s0
+/dev/dsm		u:object_r:dmd_device:s0
 
-/dev/smcinvoke u:object_r:smcinvoke_device:s0
-/system/bin/hw/android\.hardware\.bluetooth\.audio-service-system u:object_r:hal_audio_sysbta_exec:s0
+# OPPO Fingerprint HAL
+/system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oppo.compat	u:object_r:hal_fingerprint_oppo_compat_exec:s0
+
+# OPLUS Fingerprint HAL
+/system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oplus.compat	u:object_r:hal_fingerprint_oppo_compat_exec:s0
+
+# Galaxy A51 fingerprint sensor calibration
+/efs	u:object_r:efs_file:s0
+
+# For Redmi Note 9* Series Widevine
+/dev/smcinvoke	u:object_r:smcinvoke_device:s0
+
+# SYSBTA
+/system/bin/hw/android\.hardware\.bluetooth\.audio-service-system	u:object_r:hal_audio_sysbta_exec:s0
