@@ -725,6 +725,12 @@ if getprop ro.vendor.build.fingerprint | grep -q -e nubia/NX669; then
     umount /vendor/etc/audio
     sku="$(getprop ro.boot.product.vendor.sku)"
     mount /vendor/etc/audio/sku_${sku}_qssi/audio_policy_configuration.xml /vendor/etc/audio/sku_$sku/audio_policy_configuration.xml
+    cp /system/phh/nubia-nubia_goodix_ts.kl /mnt/phh/keylayout/Vendor_beef_Product_dead.kl
+    chmod 0644 /mnt/phh/keylayout/Vendor_beef_Product_dead.kl
+    # high bright mode
+    chmod 0666 /sys/kernel/lcd_enhance/hbm_state
+    chmod 0666 /sys/kernel/lcd_enhance/hbm_mode
+    changed=true
 fi
 
 # For ZF8, the "best" audio policy isn't the one for QSSI
