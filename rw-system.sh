@@ -1179,3 +1179,7 @@ fi
 if getprop ro.product.vendor.device | grep -q -e TECNO-LG8n; then
     chown -R system:system /sys/class/leds/vibrator_single/
 fi
+
+# Override media volume steps
+resetprop_phh ro.config.media_vol_steps 25
+resetprop_phh ro.config.media_vol_default 8

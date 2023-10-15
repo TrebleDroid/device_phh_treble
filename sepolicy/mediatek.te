@@ -1,5 +1,5 @@
-type hal_graphics_allocator_default, domain; 
-type proc_ged, file_type; 
+type hal_graphics_allocator_default, domain;
+type proc_ged, file_type;
 allowxperm domain proc_ged:file ioctl { 0x6700-0x67ff };
 
 allow init mnt_product_file:dir mounton;
@@ -24,3 +24,6 @@ allow { appdomain -isolated_app }  mtk_hal_mms_hwservice:hwservice_manager find;
 
 type tkcore, domain;
 permissive tkcore;
+
+allow platform_app sysfs_leds:dir r_dir_perms;
+allow platform_app sysfs_leds:file r_file_perms;
