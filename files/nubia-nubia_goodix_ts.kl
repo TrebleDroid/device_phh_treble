@@ -63,7 +63,7 @@ key 40    APOSTROPHE
 key 41    GRAVE
 key 42    SHIFT_LEFT
 key 43    BACKSLASH
-key 44    POWER
+key 44    WAKEUP
 key 45    X
 key 46    C
 key 47    V
@@ -87,7 +87,7 @@ key 64    F6
 key 65    F7
 key 66    F8
 key 67    F9
-key 68    POWER
+key 68    WAKEUP
 key 69    NUM_LOCK
 key 70    SCROLL_LOCK
 key 71    NUMPAD_7
@@ -383,7 +383,7 @@ key 471   F6                FUNCTION
 key 472   F7                FUNCTION
 key 473   F8                FUNCTION
 key 474   F9                FUNCTION
-key 475  POWER               FUNCTION
+key 475   WAKEUP               FUNCTION
 key 476   F11               FUNCTION
 key 477   F12               FUNCTION
 key 478   1                 FUNCTION
