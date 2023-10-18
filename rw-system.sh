@@ -733,10 +733,7 @@ if getprop ro.vendor.build.fingerprint | grep -q -e nubia/NX669; then
     mount /vendor/etc/audio/sku_${sku}_qssi/audio_policy_configuration.xml /vendor/etc/audio/sku_$sku/audio_policy_configuration.xml
     chmod 0666 /sys/kernel/lcd_enhance/hbm_state
     # Disable back panel touch (which would hide keyboard if accidentally touched)
-    deviceName=$(cat /sys/class/input/event9/device/name)
-    if [[ $deviceName == "nubia_sar0_channel0" ]]; then
-      rm -rf /dev/input/event9
-    fi
+    setprop persist.sys.phh.evgrab nubia_sar0_channel0
 fi
 
 # For ZF8, the "best" audio policy isn't the one for QSSI
