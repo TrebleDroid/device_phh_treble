@@ -55,10 +55,6 @@ fi
 vndk="$(getprop persist.sys.vndk)"
 [ -z "$vndk" ] && vndk="$(getprop ro.vndk.version |grep -oE '^[0-9]+')"
 
-if [ "$vndk" = 26 ];then
-	resetprop_phh ro.vndk.version 26
-fi
-
 setprop sys.usb.ffs.aio_compat true
 
 if getprop ro.vendor.build.fingerprint | grep -q -i -e Blackview/BV9500Plus;then
@@ -105,12 +101,8 @@ fixSPL() {
         fi
         for f in \
             /vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so /vendor/lib/hw/android.hardware.keymaster@3.0-impl-qti.so \
-            /system/lib64/vndk-26/libsoftkeymasterdevice.so /vendor/bin/teed \
-            /apex/com.android.vndk.v26/lib/libsoftkeymasterdevice.so  \
-            /apex/com.android.vndk.v26/lib64/libsoftkeymasterdevice.so  \
+            /vendor/bin/teed \
             /system/lib64/vndk/libsoftkeymasterdevice.so /system/lib/vndk/libsoftkeymasterdevice.so \
-            /system/lib/vndk-26/libsoftkeymasterdevice.so \
-            /system/lib/vndk-27/libsoftkeymasterdevice.so /system/lib64/vndk-27/libsoftkeymasterdevice.so \
 	    /vendor/lib/libkeymaster3device.so /vendor/lib64/libkeymaster3device.so \
         /vendor/lib/libMcTeeKeymaster.so /vendor/lib64/libMcTeeKeymaster.so \
         /vendor/lib/hw/libMcTeeKeymaster.so /vendor/lib64/hw/libMcTeeKeymaster.so $additional; do
@@ -561,19 +553,11 @@ if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so ||
 
     setprop debug.hwui.renderer opengl
     setprop ro.skia.ignore_swizzle true
-    if [ "$vndk" = 26 ] || [ "$vndk" = 27 ];then
-       setprop debug.hwui.use_buffer_age false
-
-    fi
 fi
 
 #If we have both Samsung and AOSP power hal, take Samsung's
 if [ -f /vendor/bin/hw/vendor.samsung.hardware.miscpower@1.0-service ] && [ "$vndk" -lt 28 ]; then
     mount -o bind /system/phh/empty /vendor/bin/hw/android.hardware.power@1.0-service
-fi
-
-if [ "$vndk" = 27 ] || [ "$vndk" = 26 ]; then
-    mount -o bind /system/phh/libnfc-nci-oreo.conf /system/etc/libnfc-nci.conf
 fi
 
 if busybox_phh unzip -p /vendor/app/ims/ims.apk classes.dex | grep -qF -e Landroid/telephony/ims/feature/MmTelFeature -e Landroid/telephony/ims/feature/MMTelFeature; then
@@ -814,7 +798,7 @@ fi
 for abi in "" 64;do
     f=/vendor/lib$abi/libstagefright_foundation.so
     if [ -f "$f" ];then
-        for vndk in 26 27 28 29;do
+        for vndk in 28 29;do
             mount "$f" /system/system_ext/apex/com.android.vndk.v$vndk/lib$abi/libstagefright_foundation.so
         done
     fi
@@ -1059,19 +1043,11 @@ if [ -f /vendor/etc/init/vendor.ozoaudio.media.c2@1.0-service.rc ];then
     fi
 fi
 
-if [ "$vndk" -le 27 ];then
-    setprop persist.sys.phh.no_present_or_validate true
-fi
-
 [ -d /mnt/vendor/persist ] && mount /mnt/vendor/persist /persist
 
 for f in $(find /sys -name fts_gesture_mode);do
     setprop persist.sys.phh.focaltech_node "$f"
 done
-
-if [ "$vndk" -le 27 ] && [ -f /vendor/bin/mnld ];then
-    setprop persist.sys.phh.sdk_override /vendor/bin/mnld=26
-fi
 
 if [ "$vndk" -le 30 ];then
 	# On older vendor the default behavior was to disable color management
