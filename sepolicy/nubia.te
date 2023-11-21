@@ -1,0 +1,15 @@
+#============= kernel ==============
+# W kworker/u16:6: type=1400 audit(0.0:15972): avc:  denied  { kill } for  capability=5  scontext=u:r:kernel:s0 tcontext=u:r:kernel:s0 tclass=capability permissive=0
+allow kernel self:capability kill;
+
+#============= shell ==============
+# Shoulder buttons/triggers
+type sensitivity_sysfs, file_type;
+allow shell sensitivity_sysfs:file rw_file_perms;
+allow system_app sensitivity_sysfs:file rw_file_perms;
+
+#============= system_suspend ==============
+# There are more and this is just one of them
+# avc:  denied  { read } for  name="wakeup14" dev="sysfs" ino=69575 scontext=u:r:system_suspend:s0 tcontext=u:object_r:sysfs_rtc:s0 tclass=dir permissive=0
+r_dir_file(system_suspend, sysfs_rtc)
+r_dir_file(system_suspend, sysfs)
