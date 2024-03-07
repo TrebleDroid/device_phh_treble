@@ -610,6 +610,9 @@ fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/lancelot -e Redmi/galahad; then
     setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
+    setprop ro.mtk_perf_simple_start_win 1
+    setprop ro.mtk_perf_fast_start_win 1
+    setprop ro.mtk_perf_response_time 1
     setprop debug.sf.use_phase_offsets_as_durations 1
     setprop debug.sf.late.sf.duration 27600000
     setprop debug.sf.late.app.duration 20000000
