@@ -1,14 +1,14 @@
 on post-fs
-	exec - root -- /system/bin/vndk-detect
-	exec - root -- /system/bin/rw-system.sh
-	mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
-        setprop ro.vndk.version ${persist.sys.vndk}
+    exec - root -- /system/bin/vndk-detect
+    exec - root -- /system/bin/rw-system.sh
+    mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
+    setprop ro.vndk.version ${persist.sys.vndk}
 
 on property:vold.decrypt=trigger_restart_framework
-	exec - root -- /system/bin/phh-on-data.sh
+    exec - root -- /system/bin/phh-on-data.sh
 
 on early-boot
-	exec - root -- /system/bin/phh-on-data.sh
+    exec - root -- /system/bin/phh-on-data.sh
 
 service phh_on_boot /system/bin/phh-on-boot.sh
     oneshot
@@ -95,16 +95,21 @@ on property:persist.sys.phh.force_display_5g=1
     exec u:r:phhsu_daemon:s0 root -- /system/bin/resetprop_phh ro.telephony.default_network 33,33
 
 on property:persist.sys.phh.ims.floss=true
-   exec u:r:phhsu_daemon:s0 root -- /system/bin/resetprop_phh ro.telephony.iwlan_operation_mode AP-assisted
+    exec u:r:phhsu_daemon:s0 root -- /system/bin/resetprop_phh ro.telephony.iwlan_operation_mode AP-assisted
 
 on property:persist.sys.phh.enable_sf_gl_backpressure=*
-   setprop debug.sf.enable_gl_backpressure ${persist.sys.phh.enable_sf_gl_backpressure}
+    setprop debug.sf.enable_gl_backpressure ${persist.sys.phh.enable_sf_gl_backpressure}
 
 on property:persist.sys.phh.dynamic_fps=*
-   setprop ro.surface_flinger.use_content_detection_for_refresh_rate ${persist.sys.phh.dynamic_fps}
+    setprop ro.surface_flinger.use_content_detection_for_refresh_rate ${persist.sys.phh.dynamic_fps}
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd-gsi /system/bin/watchdogd 10 20
     class core
     oneshot
     seclabel u:r:watchdogd:s0
+
+# Fix for non-AMOLED Transsion devices where brightness would be dimmer than usual
+on property:ro.vendor.transsion.backlight_12bit=*
+    setprop ro.vendor.transsion.backlight_hal.optimization ${ro.vendor.transsion.backlight_12bit}
+it}

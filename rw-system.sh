@@ -1202,9 +1202,11 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/renoir; then
     resetprop_phh ro.vendor.sre.enable false
 fi
 
-# Fix dim brightness issue on Infinix Note 30, TECNO POVA 4 non-Pro and TECNO POVA 5
-if getprop ro.vendor.build.fingerprint | grep -iq -e infinix/x6833b -e tecno/lg7n -e tecno/lh7n -e tecno/lf7-gl; then
-  setprop ro.vendor.transsion.backlight_hal.optimization 1
+# brightness fix for platform ums512 And ums9230
+if getprop ro.board.platform |grep -iq -e ums512 -e ums9230;then
+    setprop persist.sys.qcom-brightness "$(cat /sys/class/backlight/sprd_backlight/max_brightness)"
+fi
+endor.transsion.backlight_hal.optimization 1
 fi
 
 # brightness fix for platform ums512 And ums9230
