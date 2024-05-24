@@ -1202,11 +1202,10 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/renoir; then
     resetprop_phh ro.vendor.sre.enable false
 fi
 
-# Fix dim brightness issue on newer Transsion devices with LCD screen
-case "$(getprop ro.vendor.transsion.backlight_12bit)" in
-    1|true)
-        setprop ro.vendor.transsion.backlight_hal.optimization 1
-esac
+# Fix dim brightness issue on newer Transsion non-AMOLED devices
+if [ -n "$(getprop ro.vendor.transsion.backlight_12bit)" ]; then
+    setprop ro.vendor.transsion.backlight_hal.optimization "$(getprop ro.vendor.transsion.backlight_12bit)"
+fi
 
 # brightness fix for platform ums512 And ums9230
 if getprop ro.board.platform |grep -iq -e ums512 -e ums9230;then
