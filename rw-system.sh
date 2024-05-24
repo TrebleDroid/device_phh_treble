@@ -1206,8 +1206,6 @@ fi
 if getprop ro.board.platform |grep -iq -e ums512 -e ums9230;then
     setprop persist.sys.qcom-brightness "$(cat /sys/class/backlight/sprd_backlight/max_brightness)"
 fi
-endor.transsion.backlight_hal.optimization 1
-fi
 
 # brightness fix for platform ums512 And ums9230
 if getprop ro.board.platform |grep -iq -e ums512 -e ums9230;then
