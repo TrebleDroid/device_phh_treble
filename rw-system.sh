@@ -190,6 +190,12 @@ changeKeylayout() {
         chmod 0644 ${mpk}/uinput* ${mpk}/msm8953*
     fi
 
+    if getprop ro.vendor.build.fingerprint |grep -iq -e samsung/a10sxx;then
+        mkdir -p /data/vendor/mcRegistry
+        chown system /data/vendor/mcRegistry
+        chmod 755 /data/vendor/mcRegistry
+    fi
+
     if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/renoir; then
         mpk="/mnt/phh/keylayout"
         cp /system/phh/daisy-buttonJack.kl ${mpk}/lahaina-shimaidp-snd-card_Button_Jack.kl
