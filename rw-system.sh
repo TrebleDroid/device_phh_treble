@@ -250,7 +250,7 @@ changeKeylayout() {
         changed=true
     fi
 
-    if getprop ro.product.vendor.device |grep -q -e a10sxx/;then
+    if getprop ro.vendor.build.fingerprint |grep -q -e samsung/a10sxx;then
         mkdir -p /data/vendor/mcRegistry
         chown system /data/vendor/mcRegistry
         chmod 755 /data/vendor/mc/Registry
