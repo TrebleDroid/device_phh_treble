@@ -250,6 +250,12 @@ changeKeylayout() {
         changed=true
     fi
 
+    if getprop ro.vendor.build.fingerprint |grep -iq -e samsung/a10sxx;then
+        mkdir -p /data/vendor/mcRegistry
+        chown system /data/vendor/mcRegistry
+        chmod 755 /data/vendor/mc/Registry
+    fi
+    
     if getprop ro.product.vendor.manufacturer |grep -q -e motorola;then
         cp /system/phh/moto-uinput-egis.kl /mnt/phh/keylayout/uinput-egis.kl
         cp /system/phh/moto-uinput-egis.kl /mnt/phh/keylayout/uinput-fpc.kl
