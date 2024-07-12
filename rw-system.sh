@@ -629,6 +629,7 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/lancelot -e Redmi/gal
     setprop debug.stagefright.c2inputsurface -1
     setprop media.stagefright.thumbnail.prefer_hw_codecs true
     setprop ro.surface_flinger.enable_frame_rate_override false
+    resetprop_phh --delete debug.sf.disable_backpressure
 fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/rosemary \
