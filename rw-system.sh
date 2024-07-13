@@ -818,7 +818,7 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
     resetprop_phh ro.debuggable 0
     resetprop_phh ro.secure 1
     resetprop_phh ro.build.type user
-    resetprop_phh --delete ro.build.selinux
+    resetprop_phh ro.build.selinux 1
 
     resetprop_phh ro.adb.secure 1
 
