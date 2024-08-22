@@ -614,6 +614,17 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/merlin; then
     setprop debug.sf.enable_hwc_vds 0
 fi
 
+if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/lancelot -e Redmi/galahad; then
+    setprop debug.sf.use_phase_offsets_as_durations 1
+    setprop debug.sf.late.sf.duration 27600000
+    setprop debug.sf.late.app.duration 20000000
+    setprop debug.sf.early.sf.duration 27600000
+    setprop debug.sf.early.app.duration 20000000
+    setprop debug.sf.earlyGl.sf.duration 27600000
+    setprop debug.sf.earlyGl.app.duration 20000000
+    setprop debug.sf.hwc.min.duration 17000000
+fi
+
 if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/rosemary \
     -e Redmi/secret -e Redmi/maltose; then
     setprop debug.sf.latch_unsignaled 1
