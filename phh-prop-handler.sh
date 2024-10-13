@@ -62,6 +62,16 @@ xiaomi_toggle_dt2w_ioctl() {
     return 1
 }
 
+xiaomi_toggle_pen_enable() {
+    if [ -c "/dev/xiaomi-touch" ]; then
+        echo "Trying Enable Xiaomi Smart Pen with ioctl on xiaomi-touch"
+        # 20 - Touch_Pen_ENABLE
+        xiaomi-touch 20 "$1"
+        return
+    fi
+    return 1
+}
+
 restartAudio() {
     setprop ctl.restart audioserver
     audioHal="$(getprop |sed -nE 's/.*init\.svc\.(.*audio-hal[^]]*).*/\1/p')"
@@ -97,6 +107,11 @@ if [ "$1" == "persist.sys.phh.xiaomi.dt2w" ]; then
     xiaomi_toggle_dt2w_event_node "$prop_value"
     # Fallback to ioctl method
     xiaomi_toggle_dt2w_ioctl "$prop_value"
+    exit
+fi
+
+if [ "$1" == "persist.sys.phh.xiaomi.pen" ]; then
+    xiaomi_toggle_pen_enable "$prop_value"
     exit
 fi
 
