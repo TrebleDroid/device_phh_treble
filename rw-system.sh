@@ -976,7 +976,9 @@ if getprop ro.vendor.build.fingerprint |grep -qiE '^xiaomi/';then
     setprop persist.sys.phh.fod.xiaomi true
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -qiE '^samsung/';then
+if getprop ro.vendor.build.fingerprint |grep -qiE '^samsung/' && \
+        grep -q sysfs_lcd_writable /vendor/etc/selinux/vendor_file_contexts && \
+        ! grep -q vendor_sysfs_graphics /vendor/etc/selinux/vendor_file_contexts ;then
     for f in /sys/class/lcd/panel/actual_mask_brightness /sys/class/lcd/panel/mask_brightness /sys/class/lcd/panel/device/backlight/panel/brightness /sys/class/backlight/panel0-backlight/brightness;do
         if [ "$(stat -c '%U' "$f")" == "root" ] || [ "$(ls -lZ "$f" | grep -oE 'u:object_r:[^:]*:s0')" == "u:object_r:sysfs:s0" ];then
             chcon u:object_r:sysfs_lcd_writable:s0 $f
