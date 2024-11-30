@@ -313,3 +313,15 @@ cc_binary {
 		"re-libged_sys.cpp",
 	],
 }
+
+cc_binary {
+	name: "agold-cmd",
+	srcs: [
+		"agold-cmd.cpp",
+	],
+	shared_libs: [
+        "vendor.mediatek.hardware.agolddaemon-V1-cpp",
+		"libutils",
+		"libbinder",
+	],
+}
