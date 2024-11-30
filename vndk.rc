@@ -108,3 +108,7 @@ service watchdogd-gsi /system/bin/watchdogd 10 20
     class core
     oneshot
     seclabel u:r:watchdogd:s0
+
+on property:persist.sys.phh.adb_secure=1
+    exec u:r:phhsu_daemon:s0 root -- /system/bin/resetprop_phh ro.adb.secure 1
+    restart adbd
