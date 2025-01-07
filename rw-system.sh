@@ -1209,3 +1209,6 @@ fi
 if [ -n "$(getprop ro.vendor.transsion.backlight_12bit)" ];then
     setprop ro.vendor.transsion.backlight_hal.optimization $(getprop ro.vendor.transsion.backlight_12bit)
 fi
+
+# Enable pen mode on Lenovo/goodix
+echo 1 > /sys/devices/platform/goodix_ts.0/support_pen
