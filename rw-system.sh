@@ -1207,3 +1207,8 @@ fi
 if [ -n "$(getprop ro.vendor.transsion.backlight_12bit)" ];then
     setprop ro.vendor.transsion.backlight_hal.optimization $(getprop ro.vendor.transsion.backlight_12bit)
 fi
+
+# Fix default orientation on Rebecco K70
+if getprop ro.vendor.build.fingerprint | grep -iq -e Rebecco/K70_ROW; then
+    resetprop_phh ro.surface_flinger.primary_display_orientation ORIENTATION_0
+fi
