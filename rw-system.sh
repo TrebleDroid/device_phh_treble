@@ -1180,3 +1180,8 @@ fi
 # Override media volume steps
 resetprop_phh ro.config.media_vol_steps 25
 resetprop_phh ro.config.media_vol_default 8
+
+# Fix default orientation on Rebecco K70
+if getprop ro.vendor.build.fingerprint | grep -iq -e Rebecco/K70_ROW; then
+    resetprop_phh ro.surface_flinger.primary_display_orientation ORIENTATION_0
+fi
