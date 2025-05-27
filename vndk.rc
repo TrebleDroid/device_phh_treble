@@ -4,6 +4,8 @@ on post-fs
     mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
     setprop ro.vndk.version ${persist.sys.vndk}
 
+    start watchdogd-gsi
+
 on property:vold.decrypt=trigger_restart_framework
     exec - root -- /system/bin/phh-on-data.sh
 
@@ -107,6 +109,7 @@ on property:persist.sys.phh.dynamic_fps=*
 service watchdogd-gsi /system/bin/watchdogd 10 20
     class core
     oneshot
+    disabled
     seclabel u:r:watchdogd:s0
 
 on property:persist.sys.phh.adb_secure=1
