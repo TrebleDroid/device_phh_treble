@@ -20,3 +20,5 @@ allow kernel tmpfs:file relabelfrom;
 
 type sysfs_ski_display_writable, file_type;
 allow platform_app sysfs_ski_display_writable:file r_file_perms;
+
+allow apexd sysfs_mmc_host:file write;
