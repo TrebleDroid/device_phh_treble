@@ -25,22 +25,23 @@
 #define Touch_Nonui_Mode 17
 #define Touch_Debug_Level 18
 #define Touch_Power_Status 19
-#define Touch_Mode_NUM 20
+#define Touch_Pen_ENABLE 20
+#define Touch_Mode_NUM 21
 
 #define TOUCH_DEV_PATH "/dev/xiaomi-touch"
 #define TOUCH_ID 0
 #define TOUCH_MAGIC 0x5400
 #define TOUCH_IOC_SETMODE TOUCH_MAGIC + SET_CUR_VALUE
 
-int main(int argc, char **argv) {
-    if(argc != 3) {
-        fprintf(stderr, "Usage: %s <mode> <0|1>\n", argv[0]);
+int main(int argc, char **argv)
+{
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <mode> <value>\n", argv[0]);
         return -1;
     }
     int mode = atoi(argv[1]);
     int enabled = atoi(argv[2]);
-    if (mode < 0 || mode > 20) return -1;
-    if (enabled != 0 && enabled != 1) return -1;
+    if (mode < 0 || mode > Touch_Mode_NUM) return -1;
     int fd = open(TOUCH_DEV_PATH, O_RDWR);
     // Xiaomi has two competing ABIs, no idea how to detect it
     int arg[3] = {TOUCH_ID, mode, enabled};
