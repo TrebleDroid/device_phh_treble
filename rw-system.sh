@@ -385,7 +385,9 @@ chmod 0 /mnt/phh/unreadable
 if [ "$vndk" -le 29 ]; then
     mount /mnt/phh/unreadable /vendor/etc/seccomp_policy/configstore@1.1.policy
 fi
-fixSPL
+if ! getprop ro.product.vendor.model | grep -q -e oppo6771; then
+    fixSPL
+fi
 
 changeKeylayout
 
