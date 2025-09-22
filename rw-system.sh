@@ -469,6 +469,14 @@ if getprop ro.vendor.build.fingerprint | grep -q -i \
     setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
 fi
 
+# Samsung Galaxy A20s (SM-A207F/M)
+# Sets vendor.gsi.test to 0 because the stock vendor blocks camera HAL
+# access to auxiliary cameras when this property is not set to 0 or is absent
+# because then it would know that it isn't running the stock firmware.
+if getprop ro.vendor.build.fingerprint | grep -qi "samsung/a20s"; then {
+    setprop vendor.gsi.test 0
+}; fi
+
 #Realme 6
 if getprop ro.vendor.product.device |grep -iq -e RMX2001 -e RMX2151 -e RMX2111 -e RMX2111L1;then
     setprop persist.sys.phh.fingerprint.nocleanup true
