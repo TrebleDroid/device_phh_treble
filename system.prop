@@ -30,6 +30,8 @@ bluetooth.device.class_of_device=90,2,12
 
 # Enable system-side generic bluetooth audio HAL
 persist.bluetooth.system_audio_hal.enabled=true
+# Use bluetooth A2DP offload for Lenovo/TB322FC (controlled by treble app)
+persist.bluetooth.enable_bt_offload=false
 # Set commonly-supported Bluetooth profiles to enabled
 # TODO: Enable BLE Audio profiles on newer vendors
 bluetooth.profile.asha.central.enabled?=true
