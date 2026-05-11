@@ -240,6 +240,12 @@ changeKeylayout() {
         changed=true
     fi
 
+    if getprop ro.vendor.build.fingerprint | grep -iq -e Lenovo/TB710FU; then
+        cp /system/phh/lenovo-tb710fu-hall_irq.kl /mnt/phh/keylayout/hall_irq.kl
+        chmod 0644 /mnt/phh/keylayout/hall_irq.kl
+        changed=true
+    fi
+
     if ( getprop ro.build.overlay.deviceid |grep -q -e RMX1931 -e RMX1941 -e CPH1859 -e CPH1861 -e RMX2185) ||
 	    ( grep -q OnePlus /odm/etc/$(getprop ro.boot.prjname)/*.prop);then
 	echo 1 > /proc/touchpanel/double_tap_enable
