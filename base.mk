@@ -137,7 +137,7 @@ PRODUCT_COPY_FILES += \
     device/phh/treble/files/tecno-touchpanel.kl.raw:system/phh/tecno-touchpanel.kl \
     device/phh/treble/files/samsung-sec_e-pen.idc:system/usr/idc/sec_e-pen.idc \
     device/phh/treble/files/rosemary-excluded-input-devices.xml:system/phh/rosemary-excluded-input-devices.xml \
-    device/phh/treble/files/lenovo-tb710fu-hall_irq.kl.raw:system/phh/lenovo-tb710fu-hall_irq.kl \
+    device/phh/treble/files/lenovo-tb710fu-hall_irq.kl.raw:system/phh/lenovo-tb710fu-hall_irq.kl
 
 SELINUX_IGNORE_NEVERALLOWS := true
 
