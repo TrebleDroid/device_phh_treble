@@ -16,8 +16,19 @@ service phh_on_boot /system/bin/phh-on-boot.sh
     oneshot
     disabled
 
+# 4-speaker + rotation fix for Samsung CS35L41 quad-amp tablets (Tab S6 etc.).
+# Runs in phhsu_daemon so it can read the display rotation and set the amp
+# routing controls; self-noops on other hardware.
+service phh-spkrot /system/bin/phh-spkrot.sh
+    user root
+    group root audio
+    seclabel u:r:phhsu_daemon:s0
+    oneshot
+    disabled
+
 on property:sys.boot_completed=1
     start phh_on_boot
+    start phh-spkrot
     chown wifi system /data/misc/wifi
     chown system wifi /data/misc/wifi/hostapd.conf
 
