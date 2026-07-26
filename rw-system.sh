@@ -1248,3 +1248,18 @@ fi
 
 # Enable pen mode on Lenovo/goodix
 echo 1 > /sys/devices/platform/goodix_ts.0/support_pen
+
+# Samsung's sw Codec2 service seccomp policy only allows mremap with
+# MREMAP_MAYMOVE|MREMAP_FIXED, but the current bionic allocator uses other
+# flag combinations, so the service is killed with SIGSYS before it can
+# register android.hardware.media.c2@1.0. The vendor manifest declares that
+# HAL, so MediaCodecList clients wait for it forever, which also wedges the
+# StorageManagerService handler thread at boot and leaves internal storage
+# unmounted. Seen on gts6lwifi (Tab S6), likely other Samsungs too.
+if grep -q '^mremap: arg3 == 3$' /vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy 2>/dev/null; then
+    cp /vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy /mnt/phh/
+    sed -i 's/^mremap: arg3 == 3$/mremap: 1/' /mnt/phh/samsung.software.media.c2-base-policy
+    mount -o bind /mnt/phh/samsung.software.media.c2-base-policy /vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
+    chcon -h u:object_r:vendor_configs_file:s0 /vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
+    chmod 644 /vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
+fi
