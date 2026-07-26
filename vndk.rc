@@ -16,6 +16,20 @@ service phh_on_boot /system/bin/phh-on-boot.sh
     oneshot
     disabled
 
+# 4-speaker + rotation fix for Samsung CS35L41 quad-amp tablets (Tab S6 etc.).
+# treble_app publishes the display rotation into persist.sys.phh.audio_rotation
+# on change; this one-shot re-maps the amp channel routing to match. Runs in
+# phhsu_daemon for mixer access; self-noops on other hardware.
+service phh-spkrot /system/bin/phh-spkrot.sh
+    user root
+    group root audio
+    seclabel u:r:phhsu_daemon:s0
+    oneshot
+    disabled
+
+on property:persist.sys.phh.audio_rotation=*
+    start phh-spkrot
+
 on property:sys.boot_completed=1
     start phh_on_boot
     chown wifi system /data/misc/wifi
