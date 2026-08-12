@@ -68,6 +68,8 @@ restartAudio() {
     setprop ctl.restart "$audioHal"
     setprop ctl.restart vendor.audio-hal-2-0
     setprop ctl.restart audio-hal-2-0
+    setprop ctl.restart vendor.audio-hal-aidl
+    setprop ctl.restart vendor.bluetooth-aidl-qti
 }
 
 if [ "$1" == "persist.sys.phh.asus.dt2w" ]; then
@@ -276,8 +278,34 @@ if [ "$1" == "persist.bluetooth.system_audio_hal.enabled" ]; then
     else
         resetprop_phh --delete persist.bluetooth.bluetooth_audio_hal.disabled
         resetprop_phh --delete persist.bluetooth.a2dp_offload.disabled
-        resetprop_phh --delete ro.bluetooth.a2dp_offload.supported
+        if [ "$(getprop persist.bluetooth.enable_bt_offload)" == "true" ]; then
+            resetprop_phh ro.bluetooth.a2dp_offload.supported true
+        else
+            resetprop_phh --delete ro.bluetooth.a2dp_offload.supported
+        fi
     fi
     restartAudio
+    exit
+fi
+
+if [ "$1" == "persist.bluetooth.enable_bt_offload" ]; then
+    current="$(getprop ro.bluetooth.a2dp_offload.supported)"
+    if [ "$current" = "" ]; then
+        current=true
+    fi
+    # Only update prop if really changed to avoid unneccesary audio restart.
+    if [ "$current" != "$prop_value" ]; then
+        # It is meaningless to apply value if sysbta is enable.
+        if [ "$(getprop persist.bluetooth.system_audio_hal.enabled)" = "false" ]; then
+            if [ "$current" = "true" ]; then
+                resetprop_phh ro.bluetooth.a2dp_offload.supported true
+            else
+                resetprop_phh --delete ro.bluetooth.a2dp_offload.supported
+            fi
+
+            restartAudio
+        fi
+    fi
+
     exit
 fi
