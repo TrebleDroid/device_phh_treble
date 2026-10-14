@@ -156,6 +156,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     mtk-sms-fwk-ready
 
+# QCOM incoming SMS fix
+PRODUCT_PACKAGES += \
+    qcom-atel-ready
+
 # Helper to debug Xiaomi motorized camera
 PRODUCT_PACKAGES += \
     xiaomi-motor \

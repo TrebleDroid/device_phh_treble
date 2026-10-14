@@ -65,6 +65,21 @@ cc_binary {
 }
 
 cc_binary {
+	name: "qcom-atel-ready",
+	srcs: [
+		"qcom-atel-ready.cpp",
+	],
+	shared_libs: [
+		"libutils",
+		"libhidlbase",
+		"liblog",
+	],
+	init_rc: [
+		"qcom-atel-ready.rc"
+	],
+}
+
+cc_binary {
 	name: "xiaomi-display-feature",
 	srcs: [
 		"xiaomi-display-feature.cpp",

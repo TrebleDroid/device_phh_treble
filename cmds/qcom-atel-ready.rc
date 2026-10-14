@@ -1,0 +1,20 @@
+# One qcril per SIM slot; resend whenever one (re)starts, it forgets the flag
+on property:sys.boot_completed=1 && property:init.svc.vendor.qcrild=running
+    restart phh_qcom_atel_ready0
+
+on property:sys.boot_completed=1 && property:init.svc.vendor.qcrild2=running
+    restart phh_qcom_atel_ready1
+
+service phh_qcom_atel_ready0 /system/bin/qcom-atel-ready oemhook0
+    seclabel u:r:phhsu_daemon:s0
+    user radio
+    group radio
+    disabled
+    oneshot
+
+service phh_qcom_atel_ready1 /system/bin/qcom-atel-ready oemhook1
+    seclabel u:r:phhsu_daemon:s0
+    user radio
+    group radio
+    disabled
+    oneshot
