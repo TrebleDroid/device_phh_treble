@@ -72,6 +72,7 @@ PRODUCT_COPY_FILES += \
     device/phh/treble/phh-on-boot.sh:system/bin/phh-on-boot.sh \
     device/phh/treble/phh-on-data.sh:system/bin/phh-on-data.sh \
     device/phh/treble/phh-prop-handler.sh:system/bin/phh-prop-handler.sh \
+    device/phh/treble/phh-spkrot.sh:system/bin/phh-spkrot.sh \
     device/phh/treble/fixSPL/getSPL.arm:system/bin/getSPL
 
 PRODUCT_PACKAGES += \
