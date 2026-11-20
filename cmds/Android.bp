@@ -72,6 +72,7 @@ cc_binary {
 	shared_libs: [
 		"libutils",
 		"libhidlbase",
+		"libbinder_ndk",
 		"liblog",
 	],
 	init_rc: [
